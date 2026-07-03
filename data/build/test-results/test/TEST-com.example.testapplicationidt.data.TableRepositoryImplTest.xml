@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.example.testapplicationidt.data.TableRepositoryImplTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2026-07-03T12:49:12.993Z" hostname="MacBook-Air-Ivan.local" time="0.024">
+  <properties/>
+  <testcase name="generateTable_returnsCorrectSizeAndCoordinates" classname="com.example.testapplicationidt.data.TableRepositoryImplTest" time="0.024"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

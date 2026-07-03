@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.example.testapplicationidt.domain.usecase.UpdateCellValueUseCaseTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2026-07-03T12:49:11.383Z" hostname="MacBook-Air-Ivan.local" time="0.002">
+  <properties/>
+  <testcase name="invoke_updatesValue" classname="com.example.testapplicationidt.domain.usecase.UpdateCellValueUseCaseTest" time="0.002"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

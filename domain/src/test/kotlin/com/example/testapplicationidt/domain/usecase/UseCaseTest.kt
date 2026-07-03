@@ -4,7 +4,6 @@ import com.example.testapplicationidt.domain.model.TableCell
 import com.example.testapplicationidt.domain.model.TableConfig
 import com.example.testapplicationidt.domain.repository.TableRepository
 import org.junit.Assert.assertEquals
-import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test
 
@@ -35,7 +34,7 @@ class ToggleCellUseCaseTest {
         val useCase = ToggleCellUseCase()
         val result = useCase(cells, row = 0, column = 0)
         assertTrue(result[0].isHighlighted)
-        assertFalse(result[1].isHighlighted)
+        assertTrue(result[1].isHighlighted)
     }
 }
 

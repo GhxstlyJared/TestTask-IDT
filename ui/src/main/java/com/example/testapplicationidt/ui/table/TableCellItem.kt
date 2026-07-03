@@ -1,5 +1,6 @@
 package com.example.testapplicationidt.ui.table
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Box
@@ -15,6 +16,7 @@ import androidx.compose.ui.unit.dp
 import com.example.testapplicationidt.domain.model.TableCell
 import com.example.testapplicationidt.ui.theme.CellHighlight
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun TableCellItem(
     cell: TableCell,
