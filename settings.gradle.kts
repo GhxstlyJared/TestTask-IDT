@@ -20,5 +20,4 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "TestApplicationIDT"
-include(":app")
- 
+include(":app", ":ui", ":domain", ":data")
