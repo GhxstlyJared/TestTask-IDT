@@ -23,13 +23,11 @@ class TableViewModel(
     val uiState: StateFlow<TableUiState> = _uiState.asStateFlow()
 
     init {
-        viewModelScope.launch {
-            val cells = withContext(Dispatchers.Default) {
-                createTableUseCase(TableConfig(rows = rows, columns = columns))
-                    .associateBy { cellKey(it.row, it.column, columns) }
-            }
-            _uiState.update { it.copy(cells = cells, isLoading = false) }
-        }
+        loadTable()
+    }
+
+    fun retryLoad() {
+        loadTable()
     }
 
     fun onCellClick(row: Int, column: Int) {
@@ -72,5 +70,20 @@ class TableViewModel(
 
     fun onEditDismiss() {
         _uiState.update { it.copy(editingCell = null) }
+    }
+
+    private fun loadTable() {
+        _uiState.update { it.copy(isLoading = true, loadError = false) }
+        viewModelScope.launch {
+            try {
+                val cells = withContext(Dispatchers.Default) {
+                    createTableUseCase(TableConfig(rows = rows, columns = columns))
+                        .associateBy { cellKey(it.row, it.column, columns) }
+                }
+                _uiState.update { it.copy(cells = cells, isLoading = false, loadError = false) }
+            } catch (_: Exception) {
+                _uiState.update { it.copy(isLoading = false, loadError = true) }
+            }
+        }
     }
 }

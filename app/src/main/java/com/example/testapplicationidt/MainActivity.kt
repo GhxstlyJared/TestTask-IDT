@@ -16,16 +16,16 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             TestApplicationIDTTheme {
-//                if (isTablet()) {
+                if (isTablet()) {
                     AppNavigation(
                         setupViewModelFactory = SetupViewModelFactory(),
                         tableViewModelFactory = { rows, columns ->
                             TableViewModelFactory(rows, columns, container)
                         },
                     )
-//                } else {
-//                    TabletRequiredScreen()
-//                }
+                } else {
+                    TabletRequiredScreen()
+                }
             }
         }
     }

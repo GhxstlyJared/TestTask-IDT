@@ -9,4 +9,5 @@ data class TableUiState(
     val highlightedKeys: Set<Int> = emptySet(),
     val editingCell: EditingCell? = null,
     val isLoading: Boolean = true,
+    val loadError: Boolean = false,
 )

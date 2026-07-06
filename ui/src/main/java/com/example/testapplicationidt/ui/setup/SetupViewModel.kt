@@ -33,30 +33,30 @@ class SetupViewModel : ViewModel() {
         )
     }
 
-    private fun validateRows(value: String): String? {
+    private fun validateRows(value: String): SetupFieldError? {
         if (value.isBlank()) {
-            return "Required"
+            return SetupFieldError.Required
         }
         val number = value.toIntOrNull()
         if (number == null) {
-            return "Invalid number"
+            return SetupFieldError.InvalidNumber
         }
         if (number !in SetupConstraints.MIN_ROWS..SetupConstraints.MAX_ROWS) {
-            return "Must be ${SetupConstraints.MIN_ROWS}-${SetupConstraints.MAX_ROWS}"
+            return SetupFieldError.OutOfRange(SetupConstraints.MIN_ROWS, SetupConstraints.MAX_ROWS)
         }
         return null
     }
 
-    private fun validateColumns(value: String): String? {
+    private fun validateColumns(value: String): SetupFieldError? {
         if (value.isBlank()) {
-            return "Required"
+            return SetupFieldError.Required
         }
         val number = value.toIntOrNull()
         if (number == null) {
-            return "Invalid number"
+            return SetupFieldError.InvalidNumber
         }
         if (number !in SetupConstraints.MIN_COLUMNS..SetupConstraints.MAX_COLUMNS) {
-            return "Must be ${SetupConstraints.MIN_COLUMNS}-${SetupConstraints.MAX_COLUMNS}"
+            return SetupFieldError.OutOfRange(SetupConstraints.MIN_COLUMNS, SetupConstraints.MAX_COLUMNS)
         }
         return null
     }

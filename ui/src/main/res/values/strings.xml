@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="setup_title">Table size</string>
+    <string name="setup_rows_label">Rows</string>
+    <string name="setup_columns_label">Columns</string>
+    <string name="setup_build">Build</string>
+    <string name="error_required">Required</string>
+    <string name="error_invalid_number">Invalid number</string>
+    <string name="error_rows_range">Must be %1$d-%2$d</string>
+    <string name="error_columns_range">Must be %1$d-%2$d</string>
+    <string name="back">Back</string>
+    <string name="table_title">%1$d x %2$d</string>
+    <string name="edit_cell_title">Edit cell</string>
+    <string name="save">Save</string>
+    <string name="cancel">Cancel</string>
+    <string name="load_error">Failed to load table</string>
+    <string name="retry">Retry</string>
+    <string name="tablet_required_title">Tablet required</string>
+    <string name="tablet_required_message">This app runs on devices with a smallest width of 600dp or more.</string>
+</resources>
