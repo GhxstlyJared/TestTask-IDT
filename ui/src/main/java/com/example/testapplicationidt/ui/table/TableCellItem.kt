@@ -20,11 +20,12 @@ import com.example.testapplicationidt.ui.theme.CellHighlight
 @Composable
 fun TableCellItem(
     cell: TableCell,
+    isHighlighted: Boolean,
     onClick: () -> Unit,
     onDoubleClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    val backgroundColor = if (cell.isHighlighted) {
+    val backgroundColor = if (isHighlighted) {
         CellHighlight
     } else {
         MaterialTheme.colorScheme.surface

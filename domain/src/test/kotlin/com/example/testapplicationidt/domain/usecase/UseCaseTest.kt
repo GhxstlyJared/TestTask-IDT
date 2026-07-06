@@ -4,7 +4,6 @@ import com.example.testapplicationidt.domain.model.TableCell
 import com.example.testapplicationidt.domain.model.TableConfig
 import com.example.testapplicationidt.domain.repository.TableRepository
 import org.junit.Assert.assertEquals
-import org.junit.Assert.assertTrue
 import org.junit.Test
 
 class CreateTableUseCaseTest {
@@ -24,26 +23,12 @@ class CreateTableUseCaseTest {
     }
 }
 
-class ToggleCellUseCaseTest {
-    @Test
-    fun invoke_togglesHighlight() {
-        val cells = listOf(
-            TableCell(0, 0, "a", isHighlighted = false),
-            TableCell(0, 1, "b", isHighlighted = true),
-        )
-        val useCase = ToggleCellUseCase()
-        val result = useCase(cells, row = 0, column = 0)
-        assertTrue(result[0].isHighlighted)
-        assertTrue(result[1].isHighlighted)
-    }
-}
-
 class UpdateCellValueUseCaseTest {
     @Test
     fun invoke_updatesValue() {
-        val cells = listOf(TableCell(0, 0, "old"))
+        val cells = mapOf(0 to TableCell(0, 0, "old"))
         val useCase = UpdateCellValueUseCase()
-        val result = useCase(cells, row = 0, column = 0, value = "new")
-        assertEquals("new", result[0].value)
+        val result = useCase(cells, key = 0, value = "new")
+        assertEquals("new", result.getValue(0).value)
     }
 }

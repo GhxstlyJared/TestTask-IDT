@@ -23,7 +23,6 @@ class TableViewModelFactory(
             rows = rows,
             columns = columns,
             createTableUseCase = container.createTableUseCase,
-            toggleCellUseCase = container.toggleCellUseCase,
             updateCellValueUseCase = container.updateCellValueUseCase,
         ) as T
     }

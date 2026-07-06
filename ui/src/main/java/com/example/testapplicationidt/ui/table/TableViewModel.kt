@@ -1,38 +1,52 @@
 package com.example.testapplicationidt.ui.table
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.testapplicationidt.domain.model.TableConfig
 import com.example.testapplicationidt.domain.usecase.CreateTableUseCase
-import com.example.testapplicationidt.domain.usecase.ToggleCellUseCase
 import com.example.testapplicationidt.domain.usecase.UpdateCellValueUseCase
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class TableViewModel(
     private val rows: Int,
     private val columns: Int,
     private val createTableUseCase: CreateTableUseCase,
-    private val toggleCellUseCase: ToggleCellUseCase,
     private val updateCellValueUseCase: UpdateCellValueUseCase,
 ) : ViewModel() {
     private val _uiState = MutableStateFlow(TableUiState(rows = rows, columns = columns))
     val uiState: StateFlow<TableUiState> = _uiState.asStateFlow()
 
     init {
-        val cells = createTableUseCase(TableConfig(rows = rows, columns = columns))
-        _uiState.update { it.copy(cells = cells) }
+        viewModelScope.launch {
+            val cells = withContext(Dispatchers.Default) {
+                createTableUseCase(TableConfig(rows = rows, columns = columns))
+                    .associateBy { cellKey(it.row, it.column, columns) }
+            }
+            _uiState.update { it.copy(cells = cells, isLoading = false) }
+        }
     }
 
     fun onCellClick(row: Int, column: Int) {
+        val key = cellKey(row, column, columns)
         _uiState.update { state ->
-            state.copy(cells = toggleCellUseCase(state.cells, row, column))
+            val highlightedKeys = if (key in state.highlightedKeys) {
+                state.highlightedKeys - key
+            } else {
+                state.highlightedKeys + key
+            }
+            state.copy(highlightedKeys = highlightedKeys)
         }
     }
 
     fun onCellDoubleClick(row: Int, column: Int) {
-        val cell = _uiState.value.cells.first { it.row == row && it.column == column }
+        val key = cellKey(row, column, columns)
+        val cell = _uiState.value.cells[key] ?: return
         _uiState.update {
             it.copy(editingCell = EditingCell(row = row, column = column, value = cell.value))
         }
@@ -48,8 +62,9 @@ class TableViewModel(
     fun onEditConfirm() {
         _uiState.update { state ->
             val editing = state.editingCell ?: return@update state
+            val key = cellKey(editing.row, editing.column, columns)
             state.copy(
-                cells = updateCellValueUseCase(state.cells, editing.row, editing.column, editing.value),
+                cells = updateCellValueUseCase(state.cells, key, editing.value),
                 editingCell = null,
             )
         }
